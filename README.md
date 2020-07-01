@@ -35,37 +35,48 @@ Une configuration docker-compose.yml et dockerFile est mis en place pour l'autom
 Dans cette partie je vais vous expliquez, comment créer un cluster mongoDB en local manuellement.
 
 Pour commencer télécharger l'image docker, avec la commande ci-dessous:
-``docker pull mongo``
+```sh
+docker pull mongo
+```
 
 Créer ensuite un réseau docker
-``docker network create mongo-cluster-dev``
+```sh
+docker network create mongo-cluster-dev
+```
 
 Démarrer les conteneurs
-``docker run -d --net mongo-cluster-dev -p 27017:27017 --name mongoset1 mongo:4 mongod --replSet mongodb-replicaset --port 27017``
+```sh
+docker run -d --net mongo-cluster-dev -p 27017:27017 --name mongoset1 mongo:4 mongod --replSet mongodb-replicaset --port 27017
+```
 
-``docker run -d --net mongo-cluster-dev -p 27018:27018 --name mongoset2 mongo:4 mongod --replSet mongodb-replicaset --port 27018``
+```sh
+docker run -d --net mongo-cluster-dev -p 27018:27018 --name mongoset2 mongo:4 mongod --replSet mongodb-replicaset --port 27018
+```
 
-``docker run -d --net mongo-cluster-dev -p 27019:27019 --name mongoset3 mongo:4 mongod --replSet mongodb-replicaset --port 27019``
+```sh
+docker run -d --net mongo-cluster-dev -p 27019:27019 --name mongoset3 mongo:4 mongod --replSet mongodb-replicaset --port 27019
+```
+
 
 Il faut ensuite les ajouter dans votre fichier de configuration /etc/hosts
-```
+```sh
 sudo vim /etc/hosts
 
 Ajouter à la fin du fichier
 127.0.0.1 mongoset1 mongoset2 mongoset3
 ```
+
 Pour pouvoir configurer un replicatSet vous allez devoir d'abord vous connecter à un conteneur et exécuter la commande ci-dessous:
-``docker exec -it mongoset1 mongo``
+```sh
+docker exec -it mongoset1 mongo
+```
 
 Copiez ce qui suit et collez dans le shell
-```
+```sh
 db = (new Mongo('localhost:27017')).getDB('test')
 config={"_id":"mongodb-replicaset","members":[{"_id":0,"host":"mongoset1:27017"},{"_id":1,"host":"mongoset2:27018"},{"_id":2,"host":"mongoset3:27019"}]}
 rs.initiate(config)
 ```
-
-
-
 
 ### Fabriqué avec
 
