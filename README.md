@@ -7,7 +7,8 @@ L'objectifs de ce projet est de développer une API Rest avec node.js qui sera c
 - [Schematisation du cluster MongoDB et de l'architecture API REST](#architecture-technique)
 - [Description du projet](#description-du-projet)
 - [Configuration du cluster cloud](#configuration-du-cluster-cloud)
-- [Configuration du cluster local](#configuration-du-cluster-local)
+- [Configuration du cluster local manuel](#configuration-du-cluster-local-manuel)
+- [Configuration du cluster local avec dockercompose](#configuration-du-cluster-local-avec-dockercompose)
 - [Techologie utilisée](#technologie-utilisée)
 
 
@@ -43,7 +44,7 @@ La configuration du cluster de mongoDB Atlas, est assez simple:
 7) Configurer user + password.
 8) Après avoir établie la connexion vous pouvez récupérer l'url ci-dessous et l'intégrer dans votre API REST.
 
-### Configuration du cluster local
+### Configuration du cluster local manuel
 
 Dans cette partie je vais vous expliquez, comment créer un cluster mongoDB en local manuellement.
 
@@ -90,11 +91,51 @@ db = (new Mongo('localhost:27017')).getDB('test')
 config={"_id":"mongodb-replicaset","members":[{"_id":0,"host":"mongoset1:27017"},{"_id":1,"host":"mongoset2:27018"},{"_id":2,"host":"mongoset3:27019"}]}
 rs.initiate(config)
 ```
+### Configuration du cluster local avec dockercompose
+
+```bash
+version: '3.1'
+
+services:
+  mongo_one:
+    container_name: mongo1
+    image: mongo
+    command: mongod --replSet my-mongo-set
+    ports:
+      - 30001:27017
+    networks:
+      - my-mongo-cluster
+
+  mongo_two:
+    container_name: mongo2
+    image: mongo
+    command: mongod --replSet my-mongo-set
+    ports:
+      - 30002:27017
+    networks:
+      - my-mongo-cluster
+
+  mongo_three:
+    container_name: mongo3
+    image: mongo
+    command: mongod --replSet my-mongo-set
+    ports:
+      - 30003:27017
+    networks:
+      - my-mongo-cluster
+
+networks:
+  my-mongo-cluster:
+```
+
+
 
 ### Technologie utilisée
 
 * [Express](https://www.npmjs.com/package/express) - Framework d'application réseau Node.js (back-end)
-* [Nodemon](https://www.npmjs.com/package/nodemon) - Outil qui permet de redémarrer automatique le serveur si un des fichiers de l'application est modifié.
-* [Mongoose](https://www.npmjs.com/package/mongoose) - Mongoose est une bibliothèque ODM (Object Data Modeling) pour MongoDB et Node.js
-* [BodyParser](https://www.npmjs.com/package/body-parsers) - Middleware
+* [Nodemon](https://www.npmjs.com/package/nodemon) - Outil qui permet de redémarrer automatique le serveur si un des fichiers de l'application est modifié. (back-end)
+* [Mongoose](https://www.npmjs.com/package/mongoose) - Mongoose est une bibliothèque ODM (Object Data Modeling) pour MongoDB et Node.js (back-end)
+* [BodyParser](https://www.npmjs.com/package/body-parsers) - Middleware (back-end)
+* [React](https://www.npmjs.com/package/body-parsers) - Framework JS front-end
+* [React Redux](https://www.npmjs.com/package/body-parsers) - Conteneur d'état prévisible (front-end)
 
