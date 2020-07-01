@@ -168,6 +168,33 @@ c64e79d17d86        mongo                              "docker-entrypoint.s…" 
 98d9c2763896        mongo                              "docker-entrypoint.s…"   50 minutes ago      Exited (0) 20 minutes ago                         mongo3
 ```
 
+Une fois que les conteneurs instanciée, je vais me connecter au conteneur mongo1
+```sh
+docker exec -it mongo1 mongo
+```
+Une fois dans le shell,  je dois définir la configuration pour le lancement du replica set.
+```sh
+config = {
+    _id:"my-mongo-set",
+    members:[
+        {_id:0, host:"mongo1:27017"},
+        {_id:1, host:"mongo2:27017"},
+        {_id:2, host:"mongo3:27017"},
+    ]
+};
+```
+j'exécute la commande, pour initialiser le replicat set.
+```sh
+rs.initiate(config);
+```
+
+Vérifier les conteneurs pour confirmer une primary et des secondary
+```sh
+docker exec -it mongo1 mongo
+docker exec -it mongo2 mongo
+docker exec -it mongo3 mongo
+```
+
 
 ### Technologie utilisée
 

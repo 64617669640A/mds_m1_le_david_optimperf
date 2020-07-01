@@ -42,7 +42,7 @@ mongoose.connect(config.mongoURI, config.monCFG)
 */
 mongoose
   .connect(
-    'mongodb://mongodb:30001'
+    'mongodb://localhost:30001/' // cluster primary
   )
   .then(result => {
     app.listen(PORT);
