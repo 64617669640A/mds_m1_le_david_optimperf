@@ -6,7 +6,9 @@ L'objectifs de ce projet est de développer une API Rest avec node.js qui sera c
 
 - [Schematisation du cluster MongoDB et de l'architecture API REST](#architecture-technique)
 - [Description du projet](#description-du-projet)
-- [Configuration local](#configuration-local)
+- [Configuration du cluster cloud](#configuration-du-cluster-cloud)
+- [Configuration du cluster local](#configuration-du-cluster-local)
+- [Techologie utilisée](#technologie-utilisée)
 
 
 ### Schéma architecture REST API avec un cluster mongoDB Atlas
@@ -26,11 +28,22 @@ Tout d'abord, pour la partie back-end, j'ai utilisé Express.js, c'est un Framew
 
 Un système de CRUD (Create, Read, Update, Delete) TodoList est mis en place, après la définition de la routes et du model dans le serveur applicatif.
 
-Dans le cadre de l'exercice du projet, il y'aurra deux configurations cluster, un cluster local qui serra expliqué ci-dessous et un cluster dans le Cloud, expliqué au-dessus (MongoDB Atlas).
+Dans le cadre de l'exercice du projet, il y'aurra deux configurations cluster, un cluster local et un cluster dans le cloud (MongoDB Atlas).
 
 Une configuration docker-compose.yml et dockerFile est mis en place pour l'automatisation ...
+### Configuration du cluster cloud
 
-### Configuration local
+La configuration du cluster de mongoDB Atlas, est assez simple:
+1) Tout d'abord, il faut se créer un compte mongoDB Atlas.
+2) Créer un projet.
+3) Choisissez le pays pour l'hébergement cloud.
+4) Créer votre cluster (réplique simple à 3 noeuds par défaut)
+5) Configurer la white list, si vous voulez donner accès à tout le monde, entrer cette adresse 0.0.0.0/0 dans l'IP Whitelist.
+6) Etablir une connexion.
+7) Configurer user + password.
+8) Après avoir établie la connexion vous pouvez récupérer l'url ci-dessous et l'intégrer dans votre API REST.
+
+### Configuration du cluster local
 
 Dans cette partie je vais vous expliquez, comment créer un cluster mongoDB en local manuellement.
 
@@ -78,10 +91,10 @@ config={"_id":"mongodb-replicaset","members":[{"_id":0,"host":"mongoset1:27017"}
 rs.initiate(config)
 ```
 
-### Fabriqué avec
+### Technologie utilisée
 
-Le serveur d'application:
-* [Express](https://www.npmjs.com/package/express)
-* [Nodemon](https://www.npmjs.com/package/nodemon)
-* [Mongoose](https://www.npmjs.com/package/mongoose)
-* [BodyParser](https://www.npmjs.com/package/body-parsers)
+* [Express](https://www.npmjs.com/package/express) - Framework d'application réseau Node.js (back-end)
+* [Nodemon](https://www.npmjs.com/package/nodemon) - Outil qui permet de redémarrer automatique le serveur si un des fichiers de l'application est modifié.
+* [Mongoose](https://www.npmjs.com/package/mongoose) - Mongoose est une bibliothèque ODM (Object Data Modeling) pour MongoDB et Node.js
+* [BodyParser](https://www.npmjs.com/package/body-parsers) - Middleware
+

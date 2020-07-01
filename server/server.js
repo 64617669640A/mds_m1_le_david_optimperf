@@ -22,7 +22,7 @@ app.use(express.static('public'));
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
 
-//connexion à mongo Atlas
+//connexion au cluster mongo Atlas
 mongoose.connect(config.mongoURI, config.monCFG)
 .then(() => console.log('connecting to database successful'))
 .catch(
