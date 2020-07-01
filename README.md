@@ -4,13 +4,18 @@ L'objectifs de ce projet est de développer une API Rest avec node.js qui sera c
 
 ## Table des matières
 
+- [Pré-requis](#prérequis)
 - [Schematisation du cluster MongoDB et de l'architecture API REST](#architecture-technique)
 - [Description du projet](#description-du-projet)
 - [Configuration du cluster cloud](#configuration-du-cluster-cloud)
 - [Configuration du cluster local manuel](#configuration-du-cluster-local-manuel)
-- [Configuration du cluster local avec dockercompose](#configuration-du-cluster-local-avec-dockercompose)
+- [Configuration du cluster local avec docker-compose](#configuration-du-cluster-local-avec-docker-compose)
 - [Techologie utilisée](#technologie-utilisée)
 
+### Pré-requis
+* Node.js
+* Docker
+* MongoDB
 
 ### Schéma architecture REST API avec un cluster mongoDB Atlas
 ![alt text](https://github.com/davidle93/mds_m1_le_david_optimperf/blob/master/sch%C3%A9ma/Architecture%20REST%20avec%20un%20cluster%20mongoDB.jpg)
@@ -31,7 +36,8 @@ Un système de CRUD (Create, Read, Update, Delete) TodoList est mis en place, ap
 
 Dans le cadre de l'exercice du projet, il y'aurra deux configurations cluster, un cluster local et un cluster dans le cloud (MongoDB Atlas).
 
-Une configuration docker-compose.yml et dockerFile est mis en place pour l'automatisation ...
+La configuration des clusters se ferra avec docker compose, trois conteneurs dockers exécutera chacun une base de données mongodb, sur un seul hôte.
+
 ### Configuration du cluster cloud
 
 La configuration du cluster de mongoDB Atlas, est assez simple:
@@ -91,8 +97,14 @@ db = (new Mongo('localhost:27017')).getDB('test')
 config={"_id":"mongodb-replicaset","members":[{"_id":0,"host":"mongoset1:27017"},{"_id":1,"host":"mongoset2:27018"},{"_id":2,"host":"mongoset3:27019"}]}
 rs.initiate(config)
 ```
-### Configuration du cluster local avec dockercompose
+### Configuration du cluster local avec docker-compose
 
+Exécutez la commande pour lancer les scripts définis dans le fichier de configuration.
+```sh
+docker-compose up
+```
+
+Fichier de configuration docker-compose.yml
 ```bash
 version: '3.1'
 
@@ -124,6 +136,13 @@ services:
     networks:
       - my-mongo-cluster
 
+  server:
+    build: server
+    ports:
+      - "3005:3005"
+    links:
+      - mongo_one
+
 networks:
   my-mongo-cluster:
 ```
@@ -133,7 +152,7 @@ networks:
 ### Technologie utilisée
 
 * [Express](https://www.npmjs.com/package/express) - Framework d'application réseau Node.js (back-end)
-* [Nodemon](https://www.npmjs.com/package/nodemon) - Outil qui permet de redémarrer automatique le serveur si un des fichiers de l'application est modifié. (back-end)
+* [Nodemon](https://www.npmjs.com/package/nodemon) - Outil qui permet de redémarrer automatiquement le serveur si un des fichiers de l'application est modifié. (back-end)
 * [Mongoose](https://www.npmjs.com/package/mongoose) - Mongoose est une bibliothèque ODM (Object Data Modeling) pour MongoDB et Node.js (back-end)
 * [BodyParser](https://www.npmjs.com/package/body-parsers) - Middleware (back-end)
 * [React](https://www.npmjs.com/package/body-parsers) - Framework JS front-end
