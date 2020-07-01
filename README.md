@@ -143,13 +143,6 @@ services:
     networks:
       - my-mongo-cluster
 
-  server:
-    build: server
-    ports:
-      - "3005:3005"
-    links:
-      - mongo_one
-
 networks:
   my-mongo-cluster:
 ```
