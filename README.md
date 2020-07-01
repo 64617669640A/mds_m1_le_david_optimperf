@@ -195,6 +195,11 @@ docker exec -it mongo2 mongo
 docker exec -it mongo3 mongo
 ```
 
+Vous pouvez lancer le server, une fois que la configuration est terminé. N'oubliez pas de vous situez dans le dossier server pour pouvoir lancer la commande.
+```sh
+npm install && npm start
+```
+
 
 ### Technologie utilisée
 
