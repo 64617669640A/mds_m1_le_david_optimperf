@@ -9,7 +9,7 @@ L'objectifs de ce projet est de développer une API Rest avec node.js qui sera c
 - [Configuration local](#configuration-local)
 
 
-### Schema du cluster MongoDB et de l'architecture API REST
+### Schéma architecture REST avec un cluster mongoDB Atlas
 ![alt text](https://github.com/davidle93/mds_m1_le_david_optimperf/blob/master/sch%C3%A9ma/Architecture%20REST%20avec%20un%20cluster%20mongoDB.jpg)
 
 ### Description du projet
