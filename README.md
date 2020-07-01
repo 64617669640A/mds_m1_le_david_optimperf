@@ -4,50 +4,41 @@ L'objectifs de ce projet est de développer une API Rest avec node.js qui sera c
 
 ## Table des matières
 
-- [Pré-requis](#prérequis)
-- [Architecture technique](#architecture-technique)
+- [Schematisation du cluster MongoDB et de l'architecture API REST](#architecture-technique)
+- [Description du projet](#description-du-projet)
 - [Configuration local](#configuration-local)
-- [Configuration du cluster](#fabriqué-avec)
-- [Développement de l'application](#fabriqué-avec)
-- [Installation](#installation)
-- [Démarrage](#démarrage)
-- [Fabriqué avec](#fabriqué-avec)
 
 
-### Pré-requis
+### Schema du cluster MongoDB et de l'architecture API REST
+![alt text](https://github.com/davidle93/mds_m1_le_david_optimperf/blob/master/sch%C3%A9ma/Architecture%20REST%20avec%20un%20cluster%20mongoDB.jpg)
 
-Environnement Windows, Mac-OS, Linux.
+### Description du projet
+Tout d'abord, pour la partie back-end, j'ai utilisé Express.js, c'est un Framework JS conçu pour la création d'un serveur d'application. Le serveur établira une connexion au cluster MongoDB, avec l'outil mongoose et se chargera d'effectuer des requêtes sur la base de données mongoDB. L'interaction entre le serveur et la base de donnée se fera avec des flux Rest/JSON.
 
-###### Outils, nécessaire dans son environnement systèmes :
-* [Node.js](https://nodejs.org/en/) - Exécution JavaScript basée sur le moteur JavaScript V8 de Chrome.
-* [Git](https://git-scm.com/) - Système de contrôle de version.
+Un système de CRUD (Create, Read, Update, Delete) TodoList est mis en place, après la définition de la routes et du model dans le serveur applicatif.
 
-Si vous êtes sur un environnement Windows, mettez en place un terminal [Ubuntu](https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6?activetab=pivot:overviewtab), ou télécharger et installer [Git Bash](https://gitforwindows.org/), cela vous permettra l'utilisation des commandes git.
+Dans le cadre de l'exercice du projet, il y'aurra deux configurations cluster, un cluster local qui serra expliqué ci-dessous et un cluster dans le Cloud.
 
-### Architecture technique
+Une configuration docker-compose.yml et dockerFile est mis en place pour l'automatisation ...
 
 ### Configuration local
 
-### Configuration du cluster
+mongoset1
+``docker run -d --net mongo-cluster-dev -p 27017:27017 --name mongoset1 mongo mongod --replSet rs0 --port 27017 --logpath /tmp/mongo1.log``
+mongoset2
+``docker run -d --net mongo-cluster-dev -p 27018:27018 --name mongoset2 mongo mongod --replSet rs0 --port 27017 --logpath /tmp/mongo2.log``
+mongoset3
+``docker run -d --net mongo-cluster-dev -p 27019:27019 --name mongoset3 mongo mongod --replSet rs0 --port 27017 --logpath /tmp/mongo3.log``
+mongoset4
+``docker run -d --net mongo-cluster-dev -p 27020:27020 --name mongoset4 mongo mongod --replSet rs0 --port 27017 --logpath /tmp/mongo4.log``
+mongoset5
+``docker run -d --net mongo-cluster-dev -p 27021:27021 --name mongoset5 mongo mongod --replSet rs0 --port 27017 --logpath /tmp/mongo5.log``
 
-### Développement de l'application
-
-### Installation
-
-Exéctuer cette commande pour cloner le repository de l'application.
-``git clone https://github.com/davidle93/mds_m1_le_david_optimperf.git``
-
-Exécuter cette commande pour installer l'application.
-``npm install``
-
-### Démarrage
-
-Exécuter cette commande pour démarrer l'application.
-``npm start``
 
 ### Fabriqué avec
 
-* [Express](https://www.npmjs.com/package/express) - Framework Node.js (back-end)
-* [Nodemon](https://www.npmjs.com/package/express) - Framework Node.js (back-end)
-* [Mongoose](https://www.npmjs.com/package/express) - Framework Node.js (back-end)
-* [BodyParser](https://www.npmjs.com/package/body-parsers) - Middleware (back-end)
+Le serveur d'application:
+* [Express](https://www.npmjs.com/package/express)
+* [Nodemon](https://www.npmjs.com/package/nodemon)
+* [Mongoose](https://www.npmjs.com/package/mongoose)
+* [BodyParser](https://www.npmjs.com/package/body-parsers)
