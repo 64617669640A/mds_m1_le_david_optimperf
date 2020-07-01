@@ -12,7 +12,7 @@ L'objectifs de ce projet est de développer une API Rest avec node.js qui sera c
 ### Schéma architecture REST API avec un cluster mongoDB Atlas
 ![alt text](https://github.com/davidle93/mds_m1_le_david_optimperf/blob/master/sch%C3%A9ma/Architecture%20REST%20avec%20un%20cluster%20mongoDB.jpg)
 
-Ce Schéma est composé d'un client, d'une API REST et d'un cluster MongoDB Atlas.
+Ce schéma est composé d'un client, d'une API REST et d'un cluster MongoDB Atlas.
 
 Le client est une application qui envoie des demandes à un serveur. L'interraction entre le client et le serveur se fera avec des flux Rest/Json.
 
