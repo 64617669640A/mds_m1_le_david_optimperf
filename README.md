@@ -104,7 +104,14 @@ Exécutez la commande pour lancer les scripts définis dans le fichier de config
 docker-compose up
 ```
 
-Fichier de configuration docker-compose.yml
+Fichier de configuration docker-compose.yml, ci-dessous.
+
+Trois conteneurs sont définis dans ce fichier. les trois sont indentiques à l'exception des noms et des ports. Ces noms seront référencés lors de la configuration du replica set.
+
+Liste ensuite l'image docker que je veux utiliser pour configurer la base de données.
+
+my-mongo-cluster est le nom du réseau docker qui sera configuré lors de l'éxécution de docker compose. Je mets le port localhost 30001 à mapper à 27017 pour le premier conteneur. De même, les deux autres conteneurs utilisent le numéro de port consécutif suivant. Cela me permettra de me connecter à la base de données mongodb à partir du serveur hôte sur lequel je mettrais en place les conteneurs.
+
 ```bash
 version: '3.1'
 
@@ -147,6 +154,19 @@ networks:
   my-mongo-cluster:
 ```
 
+Comme vous pouvez le voir ci-dessus, je l'ai exécué pour la première fois et comme je n'avais pas cette image localement, Docker a extrait l'image et configuré mon réseau et mes conteneurs. Un réseau de dockers a été configuré avec le nom mds_m1_le_david_optimperf_my-mongo-cluster.
+
+```
+Creating network "mds_m1_le_david_optimperf_my-mongo-cluster" with the default driver
+```
+
+```sh
+CONTAINER ID        IMAGE                              COMMAND                  CREATED             STATUS                        PORTS               NAMES
+bf47cb52abb4        mds_m1_le_david_optimperf_server   "docker-entrypoint.s…"   50 minutes ago      Exited (143) 20 minutes ago                       mds_m1_le_david_optimperf_server_1
+4768bb6477b5        mongo                              "docker-entrypoint.s…"   50 minutes ago      Exited (0) 20 minutes ago                         mongo1
+c64e79d17d86        mongo                              "docker-entrypoint.s…"   50 minutes ago      Exited (0) 20 minutes ago                         mongo2
+98d9c2763896        mongo                              "docker-entrypoint.s…"   50 minutes ago      Exited (0) 20 minutes ago                         mongo3
+```
 
 
 ### Technologie utilisée
