@@ -18,7 +18,7 @@ Le client est une application qui envoie des demandes à un serveur. L'interract
 
 L'API REST est une architecture de données et une méthodologie de conception qui produit des sorties et des comportements prévisibles et cohérents en recevant un ensemble de méthodes standard appelées verbes (GET, POST, PUT, DELETE). Elle se chargera d'effectuer des requêtes sur le cluster de mongoDB Atlas ainsi que les données avant de les restituer à la partie client via des flux JSON.
 
-Un cluster est un ensemble de machine, qui peuvent être par exemple des réplicaSets c'est à dire des réplications de données. Par exemple dans ce schéma vous pouvez voir un primary et deux secondary qui sont des réplications de données de la primary. L'avantage de ce système, c'est d'avoir une sécurité, une sorte de back-up par exemple lorsque que la base de donnée primary tombe, une secondary le remplacera d'aussitôt, cela permet de maintenir une continuité de donnée.
+Un cluster est un ensemble de machine, qui peuvent être par exemple des réplicaSets c'est à dire des réplications de données. Par exemple dans ce schéma vous pouvez voir un primary et deux secondary qui sont des réplications de données de la primary. L'avantage de ce système, c'est d'avoir une sécurité, une sorte de back-up par exemple lorsque que la base de donnée primary tombe, une secondary le remplacera d'aussitôt, cela permet de maintenir une continuité de donnée en toute fiabilité.
 
 
 ### Description du projet
@@ -26,7 +26,7 @@ Tout d'abord, pour la partie back-end, j'ai utilisé Express.js, c'est un Framew
 
 Un système de CRUD (Create, Read, Update, Delete) TodoList est mis en place, après la définition de la routes et du model dans le serveur applicatif.
 
-Dans le cadre de l'exercice du projet, il y'aurra deux configurations cluster, un cluster local qui serra expliqué ci-dessous et un cluster dans le Cloud.
+Dans le cadre de l'exercice du projet, il y'aurra deux configurations cluster, un cluster local qui serra expliqué ci-dessous et un cluster dans le Cloud, expliqué au-dessous (MongoDB Atlas).
 
 Une configuration docker-compose.yml et dockerFile est mis en place pour l'automatisation ...
 
